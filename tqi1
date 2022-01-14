@@ -1,0 +1,43 @@
+CREATE TABLE cadastro
+(
+    email       VARCHAR(255) NOT NULL,
+    nome        VARCHAR(255) NOT NULL,
+    cpf         VARCHAR(255) NOT NULL,
+    rg          VARCHAR(255) NOT NULL,
+    endereco    VARCHAR(255) NOT NULL,
+    complemento VARCHAR(255) NOT NULL,
+    cep         VARCHAR(255) NOT NULL,
+    bairro      VARCHAR(255) NOT NULL,
+    cidade      VARCHAR(255) NOT NULL,
+    uf          VARCHAR(255) NOT NULL,
+    renda       FLOAT        NOT NULL,
+    senha       VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_cadastro PRIMARY KEY (email)
+);
+
+CREATE TABLE emprestimo
+(
+    codigo           INTEGER                     NOT NULL,
+    email            VARCHAR(255),
+    valor_emprestimo FLOAT                       NOT NULL,
+    data_inicio      TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    parcelas         SMALLINT                    NOT NULL,
+    email_emprestimo VARCHAR(255)                NOT NULL,
+    CONSTRAINT pk_emprestimo PRIMARY KEY (codigo)
+);
+
+ALTER TABLE emprestimo
+    ADD CONSTRAINT FK_EMPRESTIMO_ON_EMAILEMPRESTIMO FOREIGN KEY (email_emprestimo) REFERENCES cadastro (email);
+	
+	
+	
+	CREATE TABLE login
+(
+    email          VARCHAR(255) NOT NULL,
+    cadastro_email VARCHAR(255),
+    senha          VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_login PRIMARY KEY (email)
+);
+
+ALTER TABLE login
+    ADD CONSTRAINT FK_LOGIN_ON_CADASTRO_EMAIL FOREIGN KEY (cadastro_email) REFERENCES cadastro (email);
